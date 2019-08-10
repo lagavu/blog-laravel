@@ -16,7 +16,13 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
+/*
 Route::get('/home', 'HomeController@index')->name('home');
+*/
 
-Route::get('/admin', 'Admin\DashboardController@index');
+Route::group(['prefix'=>'admin', 'namespace'=>'Admin'], function (){
+    Route::get('/', 'DashboardController@index');
+    Route::resource('/categories', 'CategoriesController');
+    Route::resource('/tags', 'TagsController');
+    Route::resource('/users', 'UsersController');
+});

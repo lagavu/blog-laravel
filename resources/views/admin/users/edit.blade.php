@@ -16,7 +16,7 @@
 
         <!-- Default box -->
         <div class="box">
-            {{ Form::open(array('method'=>'PUT','route' => ['users.update', $user->id])) }}
+            {{ Form::open(array('method'=>'PUT', 'files' =>	true, 'route' => ['users.update', $user->id])) }}
             <div class="box-header with-border">
                 <h3 class="box-title">Добавляем пользователя</h3>
                 @include('admin.errors')
@@ -29,18 +29,23 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">E-mail</label>
-                        <input type="email" name="email" class="form-control" id="exampleInputEmail1" placeholder="" value="{{$user->email}}">
+                        <input type="text" name="email" class="form-control" id="exampleInputEmail1" placeholder="" value="{{$user->email}}">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Пароль</label>
                         <input type="password" name="password" class="form-control" id="exampleInputEmail1" placeholder="">
                     </div>
                     <div class="form-group">
-                        <img src="../assets/dist/img/photo1.png" alt="" width="200" class="img-responsive">
+                        <img src="{{$user->getImage()}}" alt="" width="200" class="img-responsive">
                         <label for="exampleInputFile">Аватар</label>
                         <input type="file" name="avatar" id="exampleInputFile">
 
                         <p class="help-block">Какое-нибудь уведомление о форматах..</p>
+
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('are you sure?')">
+                            Удалить аватар</button>
+                        </button>
+
                     </div>
                 </div>
             </div>

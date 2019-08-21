@@ -25,11 +25,11 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Имя</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="" name="name">
+                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="" name="name" value="{{old('name')}}">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">E-mail</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="" name="email">
+                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="" name="email" value="{{old('email')}}">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Пароль</label>

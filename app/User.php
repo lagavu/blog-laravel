@@ -72,34 +72,51 @@ class User extends Authenticatable
         $this->password = bcrypt($fields['password']);
     }
 
-    public function delete()
+    public function generatePassword($password)
     {
-        Storage::delete('uploads/' . $this->image);
+        if($password != null)
+        {
+            $this->password = bcrypt($password);
+            $this->save();
+        }
+    }
+
+    public function remove()
+    {
+        $this->removeAvatar();
         $this->delete();
     }
 
+    /**
+     * @param $image
+     */
     public function uploadAvatar($image)
     {
-        if ($image == null) { return; }
+        if($image == null) { return; }
+        $this->removeAvatar();
 
-        if ($this->avatar != null)
-        {
-            Storage::delete('uploads/' . $this->avatar);
-        }
-
-        $filename = Str::random(10) . '.' . $image->extension();
+        $filename = str_random(10) . '.' . $image->extension();
         $image->storeAs('uploads', $filename);
         $this->avatar = $filename;
         $this->save();
     }
 
-    public function getAvatar()
+    public function removeAvatar()
     {
-        if ($this->image == null)
+        if($this->avatar != null)
         {
-            return '/img/no-user-image.png';
+            Storage::delete('uploads/' . $this->avatar);
         }
-        return '/uploads/' . $this->image;
+    }
+
+    public function getImage()
+    {
+        if($this->avatar == null)
+        {
+            return '/uploads/img/no-image.png';
+        }
+
+        return '/uploads/' . $this->avatar;
     }
 
     public function makeAdmin()

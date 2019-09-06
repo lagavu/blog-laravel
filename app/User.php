@@ -96,7 +96,7 @@ class User extends Authenticatable
         $this->removeAvatar();
 
         $filename = str_random(10) . '.' . $image->extension();
-        $image->storeAs('uploads', $filename);
+        $image->storeAs('uploads/avatar/', $filename);
         $this->avatar = $filename;
         $this->save();
     }
@@ -113,10 +113,10 @@ class User extends Authenticatable
     {
         if($this->avatar == null)
         {
-            return '/uploads/img/no-image.png';
+            return 'uploads/no-image.png';
         }
 
-        return '/uploads/' . $this->avatar;
+        return 'uploads/avatar/' . $this->avatar;
     }
 
     public function makeAdmin()

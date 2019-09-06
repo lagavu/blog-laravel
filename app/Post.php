@@ -62,19 +62,24 @@ class Post extends Model
         $post->save();
     }
 
-    public static function remove()
+    public function remove()
+    {
+        $this->removeImagePost();
+        $this->delete();
+    }
+
+    public function removeImagePost()
     {
         Storage::delete('uploads/' . $this->image);
-        $this->delete();
     }
 
     public function uploadImage($image)
     {
         if ($image == null) { return; }
 
-        Storage::delete('uploads/' . $this->image);
+        $this->removeImagePost();
         $filename = str_random(10) . '.' . $image->extension();
-        $image->saveAs('uploads', $filename);
+        $image->saveAs('uploads/post', $filename);
         $this->image = $filename;
         $this->save();
     }
@@ -83,9 +88,9 @@ class Post extends Model
     {
         if ($this->image == null)
         {
-            return '/img/no-image.png';
+            return 'uploads/no-image.png';
         }
-        return '/uploads/' . $this->image;
+        return 'uploads/post/' . $this->image;
     }
 
     public function setCategory($id)
@@ -115,7 +120,7 @@ class Post extends Model
         $this->save();
     }
 
-    public function toogleStatus($value)
+    public function toggleStatus($value)
     {
         if($value == null)
         {
@@ -137,7 +142,7 @@ class Post extends Model
         $this->save();
     }
 
-    public function toogleFeatured($value)
+    public function toggleFeatured($value)
     {
         if($value == null)
         {
@@ -147,5 +152,24 @@ class Post extends Model
         return $this->setFeatured();
     }
 
+    public function getCategoryTitle(){
+        {
+            return ($this->categories != null)
+                ?   $this->categories->title
+                :   'Нет категории';
+        }
+    }
+
+    public function getTagsTitles()
+    {
+        return (!$this->tags->isEmpty())
+            ?   implode(', ', $this->tags->pluck('title')->all())
+            : 'Нет тегов';
+    }
+
+    public function getCategoryID()
+    {
+        return $this->categories != null ? $this->categories->id : null;
+    }
 
 }

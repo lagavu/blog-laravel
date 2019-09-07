@@ -44,7 +44,7 @@
                 @foreach($posts as $post)
                 <tr>
                   <td>{{$post->id}}</td>
-                  <td>{{$post->getDate()}}</td>
+                  <td>{{$post->created_at}}</td>
                   <td>{{$post->title}}</td>
                   <td>{{$post->getCategoryTitle()}}</td>
                   <td>{{$post->getTagsTitles()}}</td>

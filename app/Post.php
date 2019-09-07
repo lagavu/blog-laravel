@@ -190,9 +190,19 @@ class Post extends Model
         return $date;
     }
 */
+    public function getCreatedAtAttribute($timestamp) {
+        return Carbon::parse($timestamp)->format('d F Y H:i');
+    }
+
+
     public function getDate()
     {
         return $this->created_at;
+    }
+
+    public function hasCategory()
+    {
+        return $this->category != null ? true : false;
     }
 
 }

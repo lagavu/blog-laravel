@@ -9,9 +9,9 @@
                     @foreach($posts as $post)
                     <article class="post">
                         <div class="post-thumb">
-                            <a href="blog.html"><img src="{{$post->getImage()}}" alt=""></a>
+                            <a href="{{ route('post.show', $post->slug) }}"><img src="{{$post->getImage()}}" alt=""></a>
 
-                            <a href="blog.html" class="post-thumb-overlay text-center">
+                            <a href="{{ route('post.show', $post->slug) }}" class="post-thumb-overlay text-center">
                                 <div class="text-uppercase text-center">View Post</div>
                             </a>
                         </div>
@@ -19,7 +19,7 @@
                             <header class="entry-header text-center text-uppercase">
                                 <h6><a href="#"> {{$post->getCategoryTitle()}}</a></h6>
 
-                                <h1 class="entry-title"><a href="blog.html">{{$post->title}}</a></h1>
+                                <h1 class="entry-title"><a href="{{ route('post.show', $post->slug) }}">{{$post->title}}</a></h1>
 
 
                             </header>
@@ -29,11 +29,11 @@
                                 </p>
 
                                 <div class="btn-continue-reading text-center text-uppercase">
-                                    <a href="blog.html" class="more-link">Подробнее</a>
+                                    <a href="{{ route('post.show', $post->slug) }}" class="more-link">Подробнее</a>
                                 </div>
                             </div>
                             <div class="social-share">
-                                <span class="social-share-title pull-left text-capitalize">Создал <a href="#">Rubel:</a> {{ $post->getDate() }}</span>
+                                <span class="social-share-title pull-left text-capitalize">Добавил <a href="#">Rubel:</a> {{ $post->getDate() }}</span>
                                 <ul class="text-center pull-right">
                                     <li><a class="s-facebook" href="#"><i class="fa fa-facebook"></i></a></li>
                                     <li><a class="s-twitter" href="#"><i class="fa fa-twitter"></i></a></li>
@@ -45,13 +45,7 @@
                         </div>
                     </article>
                     @endforeach
-                    <ul class="pagination">
-                        <li class="active"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#"><i class="fa fa-angle-double-right"></i></a></li>
-                    </ul>
+                    {{$posts->links()}}
                 </div>
                 @include('pages._sidebar')
             </div>

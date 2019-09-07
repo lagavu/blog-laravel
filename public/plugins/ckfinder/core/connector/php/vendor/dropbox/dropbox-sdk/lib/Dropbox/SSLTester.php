@@ -63,7 +63,7 @@ class SSLTester
             echo "trust certificates that aren't on that list.\n";
             echo "\n";
             echo "More information on SSL certificate pinning:\n";
-            echo "https://www.owasp.org/index.php/Certificate_and_Public_Key_Pinning#What_Is_Pinning.3F\n";
+            echo "https://www.owasp.org/index.blade.php/Certificate_and_Public_Key_Pinning#What_Is_Pinning.3F\n";
             echo "-----------------------------------------------------------------------------\n";
             return false;
         }

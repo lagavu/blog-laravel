@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Support\Facades\Storage;
@@ -15,17 +16,22 @@ class Post extends Model
     const IS_FEATURED = 0;
     const IS_STANDART = 1;
 
-    protected $fillable = ['title', 'content'];
+    protected $fillable = ['title', 'content', 'date', 'description'];
 
 
     public function category()
     {
-        return $this->hasOne(Category::class);
+        return $this->belongsTo(Category::class);
     }
 
     public function author()
     {
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 
     public function tags()
@@ -56,10 +62,10 @@ class Post extends Model
         return $post;
     }
 
-    public static function edit($fields)
+    public function edit($fields)
     {
-        $post->fill($fields);
-        $post->save();
+        $this->fill($fields);
+        $this->save();
     }
 
     public function remove()
@@ -70,16 +76,16 @@ class Post extends Model
 
     public function removeImagePost()
     {
-        Storage::delete('uploads/' . $this->image);
+        Storage::delete('/uploads/' . $this->image);
     }
 
     public function uploadImage($image)
     {
         if ($image == null) { return; }
-
         $this->removeImagePost();
+
         $filename = str_random(10) . '.' . $image->extension();
-        $image->saveAs('uploads/post', $filename);
+        $image->storeAs('/uploads/post', $filename);
         $this->image = $filename;
         $this->save();
     }
@@ -88,9 +94,9 @@ class Post extends Model
     {
         if ($this->image == null)
         {
-            return 'uploads/no-image.png';
+            return '/uploads/no-image.png';
         }
-        return 'uploads/post/' . $this->image;
+        return '/uploads/post/' . $this->image;
     }
 
     public function setCategory($id)
@@ -152,12 +158,11 @@ class Post extends Model
         return $this->setFeatured();
     }
 
-    public function getCategoryTitle(){
-        {
-            return ($this->categories != null)
-                ?   $this->categories->title
-                :   'Нет категории';
-        }
+    public function getCategoryTitle()
+    {
+        return ($this->category != null)
+            ?   $this->category->title
+            :   'Нет категории';
     }
 
     public function getTagsTitles()
@@ -170,6 +175,24 @@ class Post extends Model
     public function getCategoryID()
     {
         return $this->categories != null ? $this->categories->id : null;
+    }
+/*
+    public function setDateAttribute($value)
+    {
+        $date = Carbon::now();
+        $this->attributes['date'] = $date;
+    }
+
+    public function getDateAttribute($value)
+    {
+        $date = Carbon::createFromFormat('Y-m-d', $value)->format('d/m/y H:i');
+
+        return $date;
+    }
+*/
+    public function getDate()
+    {
+        return $this->created_at;
     }
 
 }

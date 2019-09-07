@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Category;
 use App\Post;
 use App\Tag;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -29,11 +30,13 @@ class PostsController extends Controller
      */
     public function create()
     {
+        $date = Carbon::now();
         $categories = Category::pluck('title', 'id')->all();
         $tags = Tag::pluck('title', 'id')->all();
 
         return view('admin.posts.create', compact(
             'categories',
+            'date',
             'tags'
         ));
     }

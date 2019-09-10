@@ -3550,6 +3550,10 @@ ul {
     margin: 0;
 }
 
+.media-left {
+    padding-bottom: 15px;
+}
+
 .media .media-left{
     float: left;
 }
@@ -5126,6 +5130,7 @@ img.profile-image
     margin: 0px auto 20px;
     display: block;
 }
+
 /* lg */
 @media (min-width: 1400px) {
     .show-search {

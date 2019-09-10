@@ -66,6 +66,10 @@ ul {
     margin: 0;
 }
 
+.media-left {
+    padding-bottom: 15px;
+}
+
 .media .media-left{
     float: left;
 }

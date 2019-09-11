@@ -2,17 +2,17 @@
     <div class="primary-sidebar">
 
         <aside class="widget news-letter">
-            <h3 class="widget-title text-uppercase text-center">Get Newsletter</h3>
+            <h3 class="widget-title text-uppercase text-center">Подпишись на новости</h3>
 
             <form action="#">
-                <input type="email" placeholder="Your email address">
-                <input type="submit" value="Subscribe Now"
+                <input type="email" placeholder="Введите ваш Email">
+                <input type="submit" value="Подписаться"
                        class="text-uppercase text-center btn btn-subscribe">
             </form>
 
         </aside>
         <aside class="widget">
-            <h3 class="widget-title text-uppercase text-center">Популярные посты</h3>
+            <h3 class="widget-title text-uppercase text-center">Популярные</h3>
             @foreach($popularPosts as $post)
             <div class="popular-post">
 
@@ -31,7 +31,7 @@
             @endforeach
         </aside>
         <aside class="widget">
-            <h3 class="widget-title text-uppercase text-center">Рекомендуемые посты</h3>
+            <h3 class="widget-title text-uppercase text-center">Рекомендуемые</h3>
 
             <div id="widget-feature" class="owl-carousel">
                 <div class="item">
@@ -49,7 +49,7 @@
         </aside>
 
         <aside class="widget pos-padding">
-            <h3 class="widget-title text-uppercase text-center">Недавние посты</h3>
+            <h3 class="widget-title text-uppercase text-center">Недавние</h3>
             @foreach($recentPosts as $post)
             <div class="thumb-latest-posts">
 
@@ -74,7 +74,7 @@
             <ul>
                 @foreach($categories as $category)
                     <li>
-                        <a href="{{route('post.show', $category->slug)}}">{{$category->title}}</a>
+                        <a href="{{route('category.show', $category->slug)}}">{{$category->title}}</a>
                         <span class="post-count pull-right"> ({{$category->posts()->count()}})</span>
                     </li>
                 @endforeach

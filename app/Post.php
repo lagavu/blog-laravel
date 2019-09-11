@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Support\Facades\Storage;
+use Jenssegers\Date\Date;
 
 class Post extends Model
 {
@@ -26,7 +27,7 @@ class Post extends Model
 
     public function author()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function comments()
@@ -165,6 +166,20 @@ class Post extends Model
             :   'Нет категории';
     }
 
+    public function getCategorySlug()
+    {
+        return ($this->category != null)
+            ?   $this->category->slug
+            :   'Нет slug';
+    }
+
+    public function getUserName()
+    {
+        return ($this->author->name != null)
+            ?   $this->author->name
+            :   'Нет имени';
+    }
+
     public function getTagsTitles()
     {
         return (!$this->tags->isEmpty())
@@ -190,6 +205,7 @@ class Post extends Model
         return $date;
     }
 */
+
     public function getCreatedAtAttribute($timestamp) {
         return Carbon::parse($timestamp)->format('d F Y H:i');
     }
@@ -197,7 +213,7 @@ class Post extends Model
 
     public function getDate()
     {
-        return $this->created_at;
+        return Date::parse($this->created_at)->format('j F Y - H:i');
     }
 
     public function hasCategory()

@@ -5,7 +5,9 @@ namespace App\Providers;
 use App\Category;
 use App\Comment;
 use App\Post;
+use Carbon\Carbon;
 use Illuminate\Support\ServiceProvider;
+use Jenssegers\Date\Date;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -35,6 +37,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Date::setlocale(config('app.locale'));
     }
 }

@@ -3,6 +3,7 @@
 /public/storage
 /storage/*.key
 /storage/docker
+/storage/debugbar/
 /vendor
 .idea/
 .env

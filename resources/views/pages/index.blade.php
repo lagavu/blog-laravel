@@ -12,12 +12,12 @@
                             <a href="{{ route('post.show', $post->slug) }}"><img src="{{$post->getImage()}}" alt=""></a>
 
                             <a href="{{ route('post.show', $post->slug) }}" class="post-thumb-overlay text-center">
-                                <div class="text-uppercase text-center">View Post</div>
+                                <div class="text-uppercase text-center">Подробнее</div>
                             </a>
                         </div>
                         <div class="post-content">
                             <header class="entry-header text-center text-uppercase">
-                                <h6><a href="#"> {{$post->getCategoryTitle()}}</a></h6>
+                                <h6><a href="{{ route('post.show', $post->getCategorySlug()) }}">Рубрика: {{$post->getCategoryTitle()}}</a></h6>
 
                                 <h1 class="entry-title"><a href="{{ route('post.show', $post->slug) }}">{{$post->title}}</a></h1>
 
@@ -33,7 +33,7 @@
                                 </div>
                             </div>
                             <div class="social-share">
-                                <span class="social-share-title pull-left text-capitalize">Добавил <a href="#">Rubel:</a> {{ $post->getDate() }}</span>
+                                <span class="social-share-title pull-left text-capitalize">Добавил <a href="#">{{$post->author->name}}:</a> {{ $post->getDate() }}</span>
                                 <ul class="text-center pull-right">
                                     <li><a class="s-facebook" href="#"><i class="fa fa-facebook"></i></a></li>
                                     <li><a class="s-twitter" href="#"><i class="fa fa-twitter"></i></a></li>
